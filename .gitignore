@@ -39,3 +39,5 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 .mvn
+src/main/resources/static/
+src/main/resources/templates/

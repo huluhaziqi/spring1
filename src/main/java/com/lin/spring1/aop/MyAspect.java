@@ -3,6 +3,7 @@ package com.lin.spring1.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestAttributes;
@@ -35,5 +36,10 @@ public class MyAspect {
             System.out.println("failed");
         }
         return null;
+    }
+
+    @Before("check()")
+    public void f() throws Throwable{
+        System.out.println("test of before");
     }
 }
