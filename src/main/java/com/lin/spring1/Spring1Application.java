@@ -3,9 +3,11 @@ package com.lin.spring1;
 import com.lin.spring1.service.EmployeeService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @ComponentScan(basePackages = "com.lin.spring1")
+@ImportResource(value = "classpath:test.xml")
 //@EnableAspectJAutoProxy
 @SpringBootApplication
 public class Spring1Application {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+    <!-- 配置c3po连接池 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <!-- 注入属性值 -->
+        <property name="driverClassName" value="${jdbc.driverClassName}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+    <!-- 编程式事务管理 -->
+    <!-- 配置事务管理器 -->
+    <bean id="dataSourceTransactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入dataSource -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--<tx:advice id="txadvice" transaction-manager="dataSourceTransactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="add*" propagation="REQUIRED" isolation="DEFAULT" read-only="false" timeout="-1"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;<aop:pointcut id="pointCut1" expression="execution(* com.lin.spring1.service.*())"/>&ndash;&gt;-->
+        <!--<aop:pointcut id="pointCut1" expression="execution(* com.lin.spring1.service.*.*(..))"/>-->
+        <!--<aop:advisor advice-ref="txadvice" pointcut-ref="pointCut1"/>-->
+    <!--</aop:config>-->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+
+    <!-- 对象生成及属性注入 -->
+    <bean id="ordersService2" class="com.lin.spring1.service.OrderService2">
+        <property name="orderDao" ref="ordersDao"></property>
+        <!-- 注入事务管理的模板 -->
+    </bean>
+
+    <bean id="ordersDao" class="com.lin.spring1.DAO.OrderDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <!-- JDBC模板对象 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+</beans>
