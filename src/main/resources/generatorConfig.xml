@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry location="/Users/linxiaobin/.m2/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"/>
+
+	<context id="context1">
+		<commentGenerator>
+			<property name="suppressDate" value="true"/>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/lin?characterEncoding=utf-8&amp;useSSL=false&amp;autoReconnect=true"
+			userId="root"
+			password="root" />
+		<javaModelGenerator targetPackage="com.lin.spring1.model" targetProject="src/main/java" />
+		<sqlMapGenerator targetPackage="config" targetProject="src/main/resources" >
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+		<javaClientGenerator targetPackage="com.lin.spring1.DAO"
+		    targetProject="src/main/java"
+							 type = "XMLMAPPER" />
+
+		<!--type = "ANNOTATEDMAPPER"/>-->
+
+		<!--生成对应表及类名-->
+		<table tableName="upms_user" domainObjectName="UpmsUserEntity" mapperName="UpmsUserMapper"
+			   sqlProviderName="UpmsUserProvider">
+		</table>
+
+        <table tableName="account"
+            enableCountByExample="false"
+            enableDeleteByExample="false"
+            enableDeleteByPrimaryKey="false"
+            enableInsert="true"
+            enableSelectByExample="false"
+            enableUpdateByExample="true"
+            enableUpdateByPrimaryKey="false">
+        </table>
+	</context>
+</generatorConfiguration>
